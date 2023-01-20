@@ -1,224 +1,369 @@
-body{
-    position: fixed;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap');
+
+* {
     margin: 0;
-    box-sizing: border-box;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    padding: 0;
+    box-sizing:border-box;
+    -webkit-box-sizing: border-box;
+    /* webkit for chrome and safari */
+}
+
+:root {
+    --light-gray-color: #f3f5f1;
+    --orange-color : #fa8e3e;
+    --headings-color:rgb(52, 23, 33);
+    --background-color:aliceblue;
+    --form-backgroung-color:#fff;
+    --gray:#b8b7bd;
+    --lite-black-color:rgb(42, 41, 41);
+    --dark-blue: #020125;
+    --caribb-green-color: #02bfae;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color:var(--background-color) ;
     
+     /* background-color: #02bfae; */
+    min-height: 100vh;
 }
-.container{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    background: linear-gradient(45deg,rgb(47, 47, 167),rgb(36, 186, 197));
+
+/* body :not(.view-content) {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);    
+    /* ye kaam nhi kr rha sir se puchna h
+    https://stackoverflow.com/questions/29642055/popup-with-blurred-background-in-css3-and-html 
+}  */
+
+h2 , h3 , h1 ,  h4 {
+    color: var(--headings-color);
 }
-nav{
-    color: white;
-    width: 100vw;
-    height: 50px;
-    background-color: rgb(18, 95, 105);
+button,select,option{
+    /* cursor:move; */
+    cursor: pointer;
 }
-li{
-    list-style-type: none;
-    font-size: 40px;
-}
-ul{
-    margin:0px;
-}
-#input{
-    width: 285px;
-    font-size: 18px;
-    border: 2px solid rgb(15, 116, 156);
-}
-.section{
-    width: 21.7vw;
-    height: 30vw;
-    margin: 15px;
-    margin-top: 30px;
-    border: 2px solid black;
-    background-color: rgb(221, 212, 212);
-    border-radius: 5px;
+button,input {
+    outline: 0;
+    font-family: inherit;
+    font-size: 1rem;
     border: none;
 }
-h1{
-    color: rgb(5, 32, 63);
-    font-size: 18px;
-    margin-top: 15px;
-    margin-left: 15px;
-}
-.add{
-    display: flex;
-    margin: 5px;
-    margin-left: 46px;
-
-}
-#addtask{
-    cursor:pointer;
-    width: 90px;
-    height: 35px;
-    background-color: rgb(43, 100, 114);
-    color: white;
-    margin-left: 30px;
-    border-radius: 3px;
-}
-
-.TaskWrapper{
-    position: relative;
-    right: 2px;
-    width: 20.5vw;
-    height: auto;
-    border: 2px solid rgb(243, 234, 234);
-    margin: 8px;
-    background-color: white;
-    border-radius: 10px;
-}
-.TaskWrapper::-webkit-scrollbar{
-    display: none;
-}
-
-.task{
-    height: auto;
-    font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(20, 53, 102);
-    margin-left:5px;
-    margin-top: 10px;
-    margin-right: 20px;
-    font-weight: bold;
-}
-.descript{
-    margin: 10px;
-    font-size: 15px;
-    font-family: sans-serif;
-    margin: 10px;
-}
-.pin{
-    position: relative;
-    top: 8px;
-    width: 35px;
-    height: 8px;
-    background-color: rgb(219, 62, 62);
-    margin-top: px;
-    margin-left: 10px;
-    border-radius: 8px;
-}
-.circle{
-    position: absolute;
-    top: 3px;
-    left: 250px;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    background-color: rgb(228, 218, 218);
-    color: rgb(219, 62, 62);;
-    border-radius: 100%;
-    border: 3px solid rgb(219, 62, 62);
-    
-}
-.circle:hover{
-    cursor: pointer;
-}
-.scroll::-webkit-scrollbar{
-    display: none;
-}
-#paraDiv::-webkit-scrollbar{
-    display: none;
-}
-
-.allTasks{
-    overflow: scroll;
-    height: 23vw;
-}
-
-.hight{
-   
-    overflow: scroll;
-    height: 26vw;
-}
-.popup .overlay {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.7);
-    z-index: 1;
+/* view-upper */
+#fullscreen-section{
+    position:fixed;
     display:none;
-    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0,0.2);
+    z-index: 1;
 }
-.popup .content{
-    position: absolute;
-    top: 50%;
+.view-upper{
+    background-color:var(--form-backgroung-color);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    /* comment it */
+    display: none;
+    position: fixed;
+    top: 1rem;
     left: 50%;
-    transform: translate(-50%,-50%) scale(0);
-    background-color: rgb(217, 224, 111);
-    width: 450px;
-    height: 230px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+-webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 2;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
+
 }
-.popup .close-btn{
-    cursor: pointer;
+#close-btn{
+    background-color: transparent;
+    font-size: 1.4rem;
     position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30px;
+    right: 1.5rem;
+    top: 1rem;
+    display: inline-block;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    background-color: #fff;
+    color: var(--grey);
     height: 30px;
-    background: #222;
-    color: #fff;
-    font-size: 25px;
-    font-weight: 600;
-    line-height: 30px;
-    text-align: center;
+    width: 30px;
     border-radius: 50%;
+    -webkit-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
 }
-.popup.active .overlay {
-    display: block;
-
+#close-btn:hover{
+    -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+            transform: scale(1.2);
 }
-.popup.active .content {
-    transition: all 300ms ease-in-out;
-    transform: translate(-50%,-50%) scale(1);
-
+.view-head{
+    background-color: var(--orange-color);
+    padding: 1.3rem 2.5rem;
+    font-size: 1.5rem;
+    color: red;
+    position:relative;
 }
-#paraDiv{
-    width: 20vw;
-   
-    position: relative;
-    top: 5px;
-    left: 5px;
-}
-.para{
-   color: rgb(129, 10, 10);
-   font-size: 15px;
-   font-weight:600;
-   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-
-}
-#description{
-    margin: 10px;
-    height: 80px;
-    width: 400px;
-    color: rgb(141, 14, 14);
-    font-size: 3vh;
-    resize: none;
-}
-#saveBtn{
-    cursor: pointer;
-    position: absolute;
-    left: 30px;
-    background-color: green;
+.view-head h3{
     color: #fff;
-    width: 80px;
-    height: 40px;
+}
+.view-main{
+    padding: 1.2rem 2.4rem 1rem 2.4rem;
+    max-width: 570px;
+    min-width: 500px;
+}
+.view-row{
+    margin-bottom: 1.5rem;
+}
+.grid-row{
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    -webkit-column-gap: 1.3rem;
+       -moz-column-gap: 1.3rem;
+            column-gap: 1.3rem;
+}
+.view-column label{
+    display: block;
+    font-weight: 700;
+    color: var(--lite-black-color);
+    margin-bottom: 0.5rem;
+}
+.view-column input, .view-column select{
+    border: 0.5px solid rgba(184, 183, 188, 0.5);
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: 0;
+    width: 100%;
+}
+.form-data{
+    border: 0.2px solid rgba(184, 183, 188, 0.5);
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+}
+#view-btns button{
+    font-size: 1.1rem;
+    color: white;
+    border-radius: 0.6rem;
+    padding: 0.6rem 2rem;
+    -webkit-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+#view-btns button:hover{
+    -webkit-transform: translateY(2px);
+        -ms-transform: translateY(2px);
+            transform: translateY(2px);
+}
+#submit-btn, #update-btn{
+    -webkit-box-shadow: 0 0.2rem 0 0 #bd5305;
+            box-shadow: 0 0.2rem 0 0 #bd5305;
+    background-color: var(--orange-color);
+    margin-right: 0.5rem;
+    /* display: none; */
+}
+#submit-btn:hover, #update-btn:hover{
+    -webkit-box-shadow: 0 1px 0 0 #bd5305;
+            box-shadow: 0 1px 0 0 #bd5305;
+}
+#delete-btn{
+    background-color: #d33c41;
+    -webkit-box-shadow: 0 2px 0 0 #8a1f23;
+            box-shadow: 0 2px 0 0 #8a1f23;
+}
+#delete-btn:hover{
+    -webkit-box-shadow: 0 1px 0 0 #8a1f23;
+            box-shadow: 0 1px 0 0 #8a1f23;
+}
+.big-container{
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    min-width: 700px!important;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.6rem;
+}
+.heading-container{
+    padding-top: 1.5rem;
+    margin-bottom: 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.heading-container h2{
+    font-size: 2.3rem;
+}
+.heading-container svg{
+    color: var(--orange-color);
+    margin-right: 0.8rem;
+}
+.heading-container i{
+    color: #fa8e3f;
+    margin-right: 1rem;
+}
+.add-button-container{
+    padding: 1.5rem 0;
+}
+.add-button-container .btn{
+    color: #fff;
+    padding: 0.9rem;
+    border-radius: 3px;
+    -webkit-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+    background-color: var(--orange-color);
+    -webkit-box-shadow: 0 2px 0 0 #f8c8a6;
+            box-shadow: 0 2px 0 0 #f8c8a6;
+}
+.add-button-container .btn:hover{
+    -webkit-transform: translateY(2px);
+        -ms-transform: translateY(2px);
+            transform: translateY(2px);
+    -webkit-box-shadow: 0 2px 0 0 #f8c8a6;
+            box-shadow: 0 1px 0 0 #f8c8a6;;
+}
+.task-container{
+    margin: 1rem 0;
+    min-height: 450px;
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+#done-box {
+    background-color: #90EE90;
+}
+#open-box{
+   background-color: #FFB6C1;
+}
+#progress-box{
+   background-color: #FFA07A;
+}
+#review-box{
+   background-color: #D3D3D3;
+}      
+.drag{
+   opacity: 0.5;
+}
+body::-webkit-scrollbar-track{
+    /* ask by mentor */
+    /* currently not working */
+    background-color: transparent;
+}
+.drag{
+    opacity: 0.5;
+}
+.container {
+    /* background-color:var(--background-color); */
+    padding: 4px;
+    min-height: 20rem;
+    min-width: 15rem;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container h2 {
+    margin-bottom: 0.6rem;
+    margin-top: 0.3rem;
+}
+
+
+
+
+
+/* ..............................................
+ */
+ /* current in no use */
+ /* for error message */
+ /* #errorMsg{
+    border: 1px solid #d33c41!important;
+} */
+#errorMsg {
+    color: red;
+    text-align: center;
+    display: block;
+    font-size: 1.5rem;
+}
+/* .note {
+    background-color: #ffdbb1;
+    margin: 2px;
+    border: #000000;
+    border-width: 2px;
+    border-radius: 0.4rem;
+    padding: 3px;
+    width: 13rem;
+    box-shadow: 3px 5px #888888;
+}
+.task-name {
+    font-size: larger;
+    font-weight: 500;
+}
+#note-wrapper{
+    display: flex;
+    align-items: center;
+    padding: 0;
+    
+}  */
+
+ul {
+    border-radius: 0.2rem;
+    overflow-y: auto;
+    min-width: 14rem;
+    min-height: 18rem;
+}
+ul li {
+    background-color: #ffdbb1;
+    margin: 0.4rem;
+    border: #000000;
+    border-width: 2px;
     border-radius: 5px;
-    border: none; 
+    padding: 3px;
+    width: 13rem;
+    box-shadow: 3px 5px #888888;
 }
-#description::-webkit-scrollbar{
-    display: none;
+ul li:first-child {
+    margin-block-start: 0;
 }
-.delete{
-    display: none;
+ul li:last-child {
+    margin-block-end: 0;
+}
+ul {
+    list-style:none;
+    /* padding: 5px; */
+}
+
+li {
+    margin: 3rem 0;
+    cursor:pointer;
+}
+#open-box ul li {
+    background-color:#f36d8d;
+}
+#progress-box ul li {
+    background-color: rgb(219, 221, 119);
+}
+#review-box ul li {
+    background-color: rgb(209, 136, 233);
+}
+#done-box ul li {
+    background-color:#F1DDDF;
 }
