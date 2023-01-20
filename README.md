@@ -1,4 +1,4 @@
-html-css-js-project-boilerplate
+#html-css-js-project-boilerplate
 Task Manager App
 Task Manager App allows user to manage tasks.
 
@@ -19,7 +19,7 @@ html
 SVG icon
 https://icons.getbootstrap.com/icons/list-stars/
 CSS
-# fort-faminy
+# font-family
     Satisfy  from fonts.google.com     (https://fonts.google.com/specimen/Satisfy?preview.text=nunito&preview.text_type=custom&query=tis)
     <!--         <style>
                       @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap');
