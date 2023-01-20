@@ -2,69 +2,134 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="App.js" defer></script>
-  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-Manager</title>
+
+
+    <link rel="stylesheet" href="./styles.css">
+
+
+    <!-- font awesome icons  for line number 24-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-  <nav>
-    <ul>
-      <li>Task Manager</li>
-    </ul>
-  </nav>
-  <div class="add">
-    <input type="text" id="input" placeholder="Task name..">
-    <button type="submit" id="addtask">Add Task</button>
-  </div>
-  <div class="container">
-    <section class="section" id="open">
-      <div class="header">
-        <h1>OPEN</h1>
-      </div>
-      <div class="allTasks scroll hight">
-      </div>
-    </section>
+    <!-- <section ondragstart="dragstart()" onclick="updateTask()"></section> -->
 
-    <section class="section" id="progress">
-      <div class="header">
-        <h1>IN PROGRESS</h1>
-      </div>
-      <div class="allProgress scroll hight">
-      </div>
-    </section>
+    <!-- form page -->
+    <section id="fullscreen-section"></section>
+    <form class="view-upper" id="view-upper">
+        <section class="view-content">
+            <section class="view-head">
+                <h3 id="view-title">Add Task</h3>
+                <button type="button" id="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </section>
 
-    <section class="section" id="review">
-      <div class="header">
-        <h1>IN REVIEW</h1>
-      </div>
-      <div class="allReview scroll hight">
-      </div>
-    </section>
+            <span id="errorMsg"></span>
 
-    <section class="section" id="done">
-      <div class="header">
-        <h1>DONE</h1>
-      </div>
-      <div class="allDone scroll hight">
-      </div>
-    </section>
 
-  </div>
-  <div class="popup" id="popup-1">
-    <div class="overlay"></div>
-    <div class="content">
-      <h1>Task Description</h1>
-      <textarea type="text" id="description" placeholder="Write description.."></textarea></textarea>
-      <br>
-      <button id="saveBtn" onclick="save()">Save</button>
-      <div class="close-btn" onclick="togglePopup()"> &times;</div>
-    </div>
-  </div>
+            <section class="view-main"> 
+                <section class="view-row">
+                    <section class="view-column">
+                        <label for="title-data">Title:</label>
+                        <input type="text" placeholder="Enter title" class="form-data" id="title-data" name="task_name">
+                    </section>
+                </section>
+
+                <section class="view-row grid-row">
+                    <section class="view-column">
+                        <label for="description-data">Description:</label>
+                        <textarea name="task_description"  placeholder="Enter description" class="form-data" id="description-data"
+                        cols="40" rows="10" style="resize: none;"></textarea>
+                    </section>
+                </section>
+
+                <section class="view-row">
+                    <section class="view-column">
+                        <label for="labels-data">Labels:</label>
+                        <select name="labels" id="labels-data">
+                            <option value="open">open</option>
+                            <option value="progress">progress</option>
+                            <option value="review">review</option>
+                            <option value="done">done</option>
+                        </select>
+                    </section>
+                </section>
+
+                <section class="view-row" id="view-btns">
+                    <button type="submit" id="submit-btn" >Submit</button>
+                    <button type="submit" class="update-btn" id="update-btn" style="display: none;" >Update</button>
+                    <button type="submit" class="delete-btn" id="delete-btn" style="display: none;" >Delete</button>
+                </section>
+                <!-- <section class="view-row " id="view-btns">
+                    <button type="submit" class="update-btn" id="update-btn" style="display: none;">Update</button>
+                    <button type="submit" class="delete-btn" id="delete-btn" style="display: none;">Delete</button>
+                </section> -->
+
+            </section>
+
+        </section>
+    </form>
+    <!-- -------------------------------------------------- -->
+
+    <!-- four section of taskbook  -->
+    <section class="big-container">
+        <section class="heading-and-add-button-container">
+            <section class="heading-container">
+            
+                <!-- scalable vector graphics -->
+
+                <!-- https://icons.getbootstrap.com/icons/list-stars/ -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list-stars" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z"/>
+                  </svg>
+
+                  <h2>Task <span>Manager</span></h2>
+            </section>
+
+            <section class="add-button-container">
+                <button type="button" class="btn" id="add-btn">
+                    <span>
+                        <i class="fas fa-plus"></i>
+                        ADD NEW TASK
+                    </span>
+                </button>
+            </section>
+        </section>
+        
+        <section  class="task-container" id="task-container" >
+            <!-- App should have 4 sections "open", "In Progress", "In Review", "Done" -->
+            <!-- first -->
+            <section class="container four-section open-box" id="open-box" onclick="addNewTask(event)">
+                <h2>Open</h2>
+                <ul id="open" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+            </section>
+            <!-- second -->
+            <section class="container four-section progress-box" id="progress-box" onclick="addNewTask(event)">
+                <h2>In Progress</h2>
+                <ul id="progress" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+            </section>
+            <!-- third -->
+            <section class="container four-section review-box" id="review-box" onclick="addNewTask(event)">
+                <h2>In Review</h2>
+                <ul id="review" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+            </section>
+            <!-- fourth -->
+            <section class="container four-section done-box" id="done-box" onclick="addNewTask(event)">
+                <h2>Done</h2>
+                <ul id="done" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+            </section>
+            
+        </section>
+    </section>
+    <script src="./App.js"></script>
 </body>
 
 </html>
